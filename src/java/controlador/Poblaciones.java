@@ -87,7 +87,14 @@ public class Poblaciones extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String provincia = request.getParameter("provincia");
+        
+        ArrayList<String> pueblos = Utilidades.getPoblaciones(rutaFicheros.concat(File.separator).concat( provincia.concat(".txt")));
+        
+        request.setAttribute("provincias",provincias);
+        request.setAttribute("provincia","Albacete");
+        request.setAttribute("pueblos",pueblos);
+        request.getRequestDispatcher("pueblos.jsp").forward(request, response);
     }
 
     /**
