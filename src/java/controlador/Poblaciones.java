@@ -36,7 +36,7 @@ public class Poblaciones extends HttpServlet {
         provincias.add("Guadalajara");
         provincias.add("Toledo");
         
-        rutaFicheros = config.getServletContext().getRealPath("").concat(File.separator);
+        rutaFicheros = config.getServletContext().getRealPath("").concat(File.separator).concat("ficheros");
         
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

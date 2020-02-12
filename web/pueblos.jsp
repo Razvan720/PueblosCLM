@@ -22,13 +22,13 @@
         
         Provincia: <select name="provincias" >
             <% for (int p = 0; p < provincias.size(); p++) { %>
-            <option value="<% provincias.get(p); %>"> <% provincias.get(p); %> </option>
+            <option value="<%= provincias.get(p) %>"> <%= provincias.get(p) %> </option>
                 <% } %>
         </select>
         
          Pueblos: <select name="pueblos" >
             <% for (int i = 0; i < pueblos.size(); i++) { %>
-            <option value="<% pueblos.get(i); %>"> <% pueblos.get(i); %> </option>
+            <option value="<%= pueblos.get(i) %>"> <%= pueblos.get(i) %> </option>
                 <% }%>
         </select>
        
