@@ -23,90 +23,99 @@ import modelo.Utilidades;
  */
 @WebServlet(name = "Poblaciones", urlPatterns = {"/Poblaciones"})
 public class Poblaciones extends HttpServlet {
-    private ArrayList<String> provincias;
-    private String rutaFicheros;
-    
 
-    
-    public void init(ServletConfig config) throws ServletException{
-        provincias = new ArrayList<String>();
-        provincias.add("Albacete");
-        provincias.add("Ciudad Real");
-        provincias.add("Cuenca");
-        provincias.add("Guadalajara");
-        provincias.add("Toledo");
-        
-        rutaFicheros = config.getServletContext().getRealPath("").concat(File.separator).concat("ficheros");
-        
-    }
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Poblaciones</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Poblaciones at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+	private ArrayList<String> provincias;
+	private String rutaFicheros;
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	public void init(ServletConfig config) throws ServletException {
+		provincias = new ArrayList<String>();
+		provincias.add("Albacete");
+		provincias.add("Ciudad Real");
+		provincias.add("Cuenca");
+		provincias.add("Guadalajara");
+		provincias.add("Toledo");
+
+		rutaFicheros = config.getServletContext().getRealPath("").concat(File.separator).concat("ficheros");
+
+	}
+
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		try (PrintWriter out = response.getWriter()) {
+			/* TODO output your page here. You may use following sample code. */
+			out.println("<!DOCTYPE html>");
+			out.println("<html>");
+			out.println("<head>");
+			out.println("<title>Servlet Poblaciones</title>");
+			out.println("</head>");
+			out.println("<body>");
+			out.println("<h1>Servlet Poblaciones at " + request.getContextPath() + "</h1>");
+			out.println("</body>");
+			out.println("</html>");
+		}
+	}
+
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	/**
+	 * Handles the HTTP <code>GET</code> method.
+	 *
+	 * @param request servlet request
+	 * @param response servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException if an I/O error occurs
+	 */
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		
-        ArrayList<String> pueblos = Utilidades.getPoblaciones(rutaFicheros.concat(File.separator).concat("Albacete.txt"));
-        request.setAttribute("provincias",provincias);
-        request.setAttribute("provincia","Albacete");
-        request.setAttribute("pueblos",pueblos);
-        request.getRequestDispatcher("pueblos.jsp").forward(request, response);
-       
-    }
+		String provincia = request.getParameter("provincia");
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String provincia = request.getParameter("provincias");
-        String archivoprovincia = provincia.replace(" ", "");
-        
-        ArrayList<String> pueblos = Utilidades.getPoblaciones(rutaFicheros.concat(File.separator).concat( archivoprovincia.concat(".txt")));
-        
-        request.setAttribute("provincias",provincias);
-        request.setAttribute("provincia",provincia);
-        request.setAttribute("pueblos",pueblos);
-        request.getRequestDispatcher("pueblos.jsp").forward(request, response);
-    }
+		if (provincia == null) {
+			provincia = "Albacete";
+		}
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+		String archivoprovincia = provincia.replace(" ", "");
+
+		ArrayList<String> pueblos = Utilidades.getPoblaciones(rutaFicheros.concat(File.separator).concat(archivoprovincia.concat(".txt")));
+
+		request.setAttribute("provincias", provincias);
+		request.setAttribute("provincia", provincia);
+		request.setAttribute("pueblos", pueblos);
+		request.getRequestDispatcher("pueblos.jsp").forward(request, response);
+
+	}
+
+	/**
+	 * Handles the HTTP <code>POST</code> method.
+	 *
+	 * @param request servlet request
+	 * @param response servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException if an I/O error occurs
+	 */
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String provincia = request.getParameter("provincias");
+		String archivoprovincia = provincia.replace(" ", "");
+
+		ArrayList<String> pueblos = Utilidades.getPoblaciones(rutaFicheros.concat(File.separator).concat(archivoprovincia.concat(".txt")));
+
+		request.setAttribute("provincias", provincias);
+		request.setAttribute("provincia", provincia);
+		request.setAttribute("pueblos", pueblos);
+		request.getRequestDispatcher("pueblos.jsp").forward(request, response);
+	}
+
+	/**
+	 * Returns a short description of the servlet.
+	 *
+	 * @return a String containing servlet description
+	 */
+	@Override
+	public String getServletInfo() {
+		return "Short description";
+	}// </editor-fold>
 
 }
